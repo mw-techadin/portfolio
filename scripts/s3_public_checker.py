@@ -16,6 +16,8 @@ Usage:
     python3 s3_public_checker.py --region us-east-1 --output json
 """
 
+from __future__ import annotations
+
 import json
 import sys
 import argparse

@@ -21,6 +21,8 @@ Usage:
     python3 shodan_scan_to_jira.py --target example.com --dry-run
 """
 
+from __future__ import annotations
+
 import os
 import sys
 import json
@@ -114,23 +116,24 @@ def create_jira_ticket(finding: dict, target: str, dry_run: bool) -> dict | None
         f"[Shodan] Unexpected open port {finding['port']}/{finding['transport']} "
         f"on {finding['ip']} ({target})"
     )
+    hostnames = ', '.join(finding.get('hostnames', [])) or 'N/A'
+    banner    = finding.get('banner', 'N/A')
     description = (
-        f"*Finding source:* Shodan automated scan\n"
-        f"*Scan date:* {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}\n\n"
-        f"||Field||Value||\n"
-        f"|Target|{target}|\n"
-        f"|IP|{finding['ip']}|\n"
-        f"|Port|{finding['port']}/{finding['transport']}|\n"
-        f"|Product|{finding.get('product') or 'N/A'}|\n"
-        f"|Country|{finding.get('country') or 'N/A'}|\n"
-        f"|Org|{finding.get('org') or 'N/A'}|\n"
-        f"|Hostnames|{', '.join(finding.get('hostnames', [])) or 'N/A'}|\n\n"
-        f"*Banner (first 200 chars):*\n{{noformat}}\n{finding.get('banner', 'N/A')}\n{{noformat}}\n\n"
-        f"*Action required:*\n"
-        f"# Confirm whether this port should be exposed.\n"
-        f"# If unexpected, identify the service and owner.\n"
-        f"# Firewall or restrict access, or close the service.\n"
-        f"# Update the allowed-ports list if this is intentional.\n"
+        f"Finding source: Shodan automated scan\n"
+        f"Scan date: {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}\n\n"
+        f"Target:    {target}\n"
+        f"IP:        {finding['ip']}\n"
+        f"Port:      {finding['port']}/{finding['transport']}\n"
+        f"Product:   {finding.get('product') or 'N/A'}\n"
+        f"Country:   {finding.get('country') or 'N/A'}\n"
+        f"Org:       {finding.get('org') or 'N/A'}\n"
+        f"Hostnames: {hostnames}\n\n"
+        f"Banner (first 200 chars):\n{banner}\n\n"
+        f"Action required:\n"
+        f"1. Confirm whether this port should be exposed.\n"
+        f"2. If unexpected, identify the service and owner.\n"
+        f"3. Firewall or restrict access, or close the service.\n"
+        f"4. Update the allowed-ports list if this is intentional.\n"
     )
 
     payload = {
