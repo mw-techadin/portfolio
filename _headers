@@ -1,0 +1,24 @@
+/*
+  # Prevent clickjacking — disallow framing of any page
+  X-Frame-Options: DENY
+
+  # Prevent MIME-type sniffing — serve files as declared Content-Type only
+  X-Content-Type-Options: nosniff
+
+  # Disable legacy XSS auditor (deprecated; set to 0 to prevent auditor-based XSS vectors)
+  X-XSS-Protection: 0
+
+  # Referrer information: send origin only on same-origin requests, nothing cross-origin
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # Restrict access to browser features not used by this site
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+
+  # Content Security Policy
+  # script-src:  local JS + Tailwind CDN + inline config block required by CDN Tailwind
+  # style-src:   local CSS + Google Fonts stylesheet + Tailwind-injected <style> blocks
+  # font-src:    Google Fonts binary assets only
+  # img-src:     local images + data URIs (base64 favicons etc.)
+  # connect-src: no XHR/fetch — static site with no API calls
+  # frame/object/base/form: all blocked
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.tailwindcss.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none';
