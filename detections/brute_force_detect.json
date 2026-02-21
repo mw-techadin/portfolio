@@ -1,0 +1,125 @@
+{
+  "$schema": "https://sec-eng.example/schemas/detection-rule/v1",
+  "rules": [
+    {
+      "id": "BFD-001",
+      "name": "SSH Brute Force - Threshold Exceeded",
+      "description": "Triggers when a single source IP generates more failed SSH authentication attempts than the threshold within the observation window.",
+      "category": "credential_access",
+      "mitre_attack": {
+        "tactic": "Credential Access",
+        "technique": "T1110",
+        "sub_technique": "T1110.001",
+        "name": "Brute Force: Password Guessing"
+      },
+      "log_source": {
+        "type": "syslog",
+        "path": "/var/log/auth.log",
+        "platform": "linux"
+      },
+      "detection": {
+        "filter": {
+          "process": "sshd",
+          "event_pattern": "Failed (password|publickey) for"
+        },
+        "aggregation": {
+          "group_by": ["source_ip"],
+          "count_field": "event_id",
+          "threshold": 10,
+          "window_minutes": 5
+        }
+      },
+      "severity": "HIGH",
+      "response": {
+        "actions": ["alert", "block_ip", "notify_slack"],
+        "escalate_after_minutes": 15
+      },
+      "false_positive_notes": "May fire for legitimate users behind a NAT or shared egress IP. Validate with GeoIP context and user reports.",
+      "tags": ["ssh", "brute-force", "authentication", "linux"],
+      "version": "1.0.0",
+      "author": "Security Engineering",
+      "created": "2025-01-01",
+      "last_updated": "2025-06-01"
+    },
+    {
+      "id": "BFD-002",
+      "name": "SSH Distributed Brute Force - Multiple IPs",
+      "description": "Detects low-and-slow brute force from multiple source IPs targeting the same username (password spraying pattern).",
+      "category": "credential_access",
+      "mitre_attack": {
+        "tactic": "Credential Access",
+        "technique": "T1110",
+        "sub_technique": "T1110.003",
+        "name": "Brute Force: Password Spraying"
+      },
+      "log_source": {
+        "type": "syslog",
+        "path": "/var/log/auth.log",
+        "platform": "linux"
+      },
+      "detection": {
+        "filter": {
+          "process": "sshd",
+          "event_pattern": "Failed (password|publickey) for"
+        },
+        "aggregation": {
+          "group_by": ["target_username"],
+          "distinct_count_field": "source_ip",
+          "distinct_threshold": 5,
+          "window_minutes": 60
+        }
+      },
+      "severity": "MEDIUM",
+      "response": {
+        "actions": ["alert", "notify_slack"],
+        "escalate_after_minutes": 30
+      },
+      "false_positive_notes": "Can fire if a shared service account has its password expire and many clients retry simultaneously.",
+      "tags": ["ssh", "password-spray", "credential-access", "linux"],
+      "version": "1.0.0",
+      "author": "Security Engineering",
+      "created": "2025-01-01",
+      "last_updated": "2025-06-01"
+    },
+    {
+      "id": "BFD-003",
+      "name": "SSH Invalid User Enumeration",
+      "description": "Detects repeated failed login attempts against non-existent usernames, indicating user enumeration activity.",
+      "category": "reconnaissance",
+      "mitre_attack": {
+        "tactic": "Discovery",
+        "technique": "T1087",
+        "sub_technique": "T1087.001",
+        "name": "Account Discovery: Local Account"
+      },
+      "log_source": {
+        "type": "syslog",
+        "path": "/var/log/auth.log",
+        "platform": "linux"
+      },
+      "detection": {
+        "filter": {
+          "process": "sshd",
+          "event_pattern": "Invalid user \\S+ from"
+        },
+        "aggregation": {
+          "group_by": ["source_ip"],
+          "distinct_count_field": "target_username",
+          "distinct_threshold": 5,
+          "window_minutes": 10
+        }
+      },
+      "severity": "MEDIUM",
+      "response": {
+        "actions": ["alert", "log_enrichment"],
+        "escalate_after_minutes": 60
+      },
+      "false_positive_notes": "Scripted deployments with misconfigured usernames can trigger this. Check deployment logs.",
+      "tags": ["ssh", "enumeration", "reconnaissance"],
+      "version": "1.0.0",
+      "author": "Security Engineering",
+      "created": "2025-03-15",
+      "last_updated": "2025-06-01"
+    }
+  ]
+}
