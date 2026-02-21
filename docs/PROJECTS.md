@@ -2,6 +2,8 @@
 
 A reference guide for every script and tool in this portfolio, including purpose, usage, and dependencies.
 
+**Python compatibility:** All scripts require Python 3.7 or later.
+
 ---
 
 ## scripts/
@@ -125,10 +127,10 @@ python3 detections/failed_logins_summary.py --json /tmp/events.json --output-jso
 **Purpose:** GitHub Action that runs `gitleaks` on every PR and push to main, failing the build if secrets are detected.
 
 **Features:**
-- Scans only commits introduced by the PR (not full history)
+- On PRs: scans only the commits introduced by the PR; on push: scans the head commit
 - Posts a PR comment listing violations
 - Uploads a `gitleaks-report.json` artifact on failure
-- Optionally sends a Slack alert when secrets land on main
+- Optionally sends a Slack alert (via `slackapi/slack-github-action@v2`) when secrets land on main
 
 **Required secrets:**
 - `SLACK_WEBHOOK_URL` (optional, for Slack notifications)
@@ -158,6 +160,7 @@ python3 detections/failed_logins_summary.py --json /tmp/events.json --output-jso
 
 **Features:**
 - Handles single-runner and multi-runner checkov output
+- Correctly maps check name and description from checkov's nested output structure
 - Filters by minimum severity
 - Groups findings by CRITICAL → HIGH → MEDIUM → LOW
 - Markdown output for GitHub PR comments or Confluence pages
@@ -180,7 +183,7 @@ python3 devsecops/checkov_report_parser.py --input checkov_report.json --severit
 - Supports domain names, single IPs, and CIDR ranges
 - Configurable allowed-ports list (default: 80, 443)
 - `--dry-run` mode for testing without creating tickets
-- Generates detailed Jira issue descriptions with banner excerpts
+- Generates Jira issue descriptions in plain text (compatible with Jira Cloud REST API v2 and v3)
 
 **Required env vars:**
 ```
@@ -197,7 +200,7 @@ python3 integrations/shodan_scan_to_jira.py --target example.com --dry-run
 ---
 
 ### `slack_notifier.py`
-**Purpose:** Reusable Slack webhook helper for sending colour-coded security alerts from any automation script.
+**Purpose:** Reusable Slack webhook helper for sending colour-coded security alerts from any automation script using Slack Block Kit.
 
 **Severities and colours:**
 | Severity | Colour |

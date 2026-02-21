@@ -47,8 +47,8 @@ def extract_failed_checks(data: dict) -> list[dict]:
             severity = (check.get("severity") or "UNKNOWN").upper()
             failed.append({
                 "check_id":   check.get("check_id", ""),
-                "name":       check.get("check_type", check.get("name", "")),
-                "description": check.get("check_id", ""),
+                "name":       check.get("check", {}).get("name", check.get("name", check.get("check_id", ""))),
+                "description": check.get("description", check.get("short_description", "")),
                 "severity":   severity,
                 "resource":   check.get("resource", ""),
                 "file":       check.get("repo_file_path", check.get("file_path", "")),
