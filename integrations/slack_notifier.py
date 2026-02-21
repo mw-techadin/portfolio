@@ -27,6 +27,8 @@ Usage as a CLI:
     SLACK_WEBHOOK_URL=https://hooks.slack.com/... python3 slack_notifier.py --title "Test" --message "msg"
 """
 
+from __future__ import annotations
+
 import os
 import sys
 import json
@@ -78,7 +80,7 @@ class SlackNotifier:
         link: str | None = None,
     ) -> bool:
         """
-        Send a formatted security alert to Slack.
+        Send a formatted security alert to Slack using Block Kit.
 
         Returns True on success, False on failure.
         """
@@ -87,27 +89,50 @@ class SlackNotifier:
         emoji     = SEVERITY_EMOJI.get(severity, ":bell:")
         timestamp = datetime.now(tz=timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
-        attachment: dict = {
-            "color":    color,
-            "fallback": f"[{severity}] {title}: {message}",
-            "title":    f"{emoji} [{severity}] {title}",
-            "text":     message,
-            "footer":   f"{source}  |  {timestamp}",
-            "fields":   [],
-        }
+        header_text = f"{emoji} [{severity}] {title}"
+        if link:
+            header_text = f"<{link}|{emoji} [{severity}] {title}>"
+
+        blocks: list[dict] = [
+            {
+                "type": "section",
+                "text": {"type": "mrkdwn", "text": f"*{header_text}*"},
+            },
+            {
+                "type": "section",
+                "fields": [
+                    {"type": "mrkdwn", "text": f"*Severity:*\n{severity}"},
+                    {"type": "mrkdwn", "text": f"*Source:*\n{source}"},
+                    {"type": "mrkdwn", "text": f"*Time:*\n{timestamp}"},
+                ],
+            },
+            {
+                "type": "section",
+                "text": {"type": "mrkdwn", "text": message},
+            },
+        ]
 
         if fields:
-            for key, value in fields.items():
-                attachment["fields"].append({
-                    "title": str(key),
-                    "value": str(value),
-                    "short": len(str(value)) < 40,
+            field_blocks = [
+                {"type": "mrkdwn", "text": f"*{k}:*\n{v}"}
+                for k, v in fields.items()
+            ]
+            # Slack limits section fields to 10 items
+            for i in range(0, len(field_blocks), 10):
+                blocks.append({
+                    "type": "section",
+                    "fields": field_blocks[i:i + 10],
                 })
 
-        if link:
-            attachment["title_link"] = link
+        blocks.append({
+            "type": "context",
+            "elements": [{"type": "mrkdwn", "text": f"Sent via {source}"}],
+        })
 
-        payload = {"attachments": [attachment]}
+        # Use attachment wrapper to preserve the color sidebar while using Block Kit
+        payload = {
+            "attachments": [{"color": color, "blocks": blocks}],
+        }
 
         try:
             resp = requests.post(
