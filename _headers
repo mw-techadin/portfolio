@@ -14,6 +14,9 @@
   # Restrict access to browser features not used by this site
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
 
+  # Enforce HTTPS for 2 years; include subdomains; eligible for browser preload lists
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+
   # Content Security Policy
   # script-src:  local JS + Tailwind CDN + inline config block required by CDN Tailwind
   # style-src:   local CSS + Google Fonts stylesheet + Tailwind-injected <style> blocks
@@ -21,4 +24,4 @@
   # img-src:     local images + data URIs (base64 favicons etc.)
   # connect-src: no XHR/fetch — static site with no API calls
   # frame/object/base/form: all blocked
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.tailwindcss.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none';
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.tailwindcss.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://github.com https://avatars.githubusercontent.com; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none';
