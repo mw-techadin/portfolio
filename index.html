@@ -4,6 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Security Engineer Portfolio</title>
+  <!-- Security headers (HTTP-level enforcement via _headers / vercel.json for deployed instances) -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 script-src 'self' https://cdn.tailwindcss.com 'unsafe-inline';
+                 style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
+                 font-src 'self' https://fonts.gstatic.com;
+                 img-src 'self' data:;
+                 connect-src 'none';
+                 frame-src 'none';
+                 object-src 'none';
+                 base-uri 'self';
+                 form-action 'none';">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -138,8 +151,8 @@
           <div class="text-xs text-slate-500 mt-1 uppercase tracking-widest">Projects</div>
         </div>
         <div class="text-center">
-          <div class="font-mono text-3xl font-bold text-terminal-green">3+</div>
-          <div class="text-xs text-slate-500 mt-1 uppercase tracking-widest">Years Exp</div>
+          <div class="font-mono text-3xl font-bold text-terminal-green">10+</div>
+          <div class="text-xs text-slate-500 mt-1 uppercase tracking-widest">Years in IT</div>
         </div>
       </div>
     </div>
@@ -165,17 +178,18 @@
         <!-- Text -->
         <div class="md:col-span-3 space-y-5 text-slate-400 leading-relaxed reveal">
           <p>
-            I'm a security engineer with a passion for turning security into code. Whether that's
-            parsing auth logs for brute-force indicators, auditing cloud infrastructure, or embedding
-            secret scanning directly into CI/CD pipelines — I believe the best security is the kind
-            that runs automatically.
+            I'm a security and infrastructure engineer with 10 years in the IT field — the last 7
+            spent at the intersection of <span class="text-slate-200">infrastructure engineering</span>
+            and <span class="text-slate-200">cybersecurity</span>. I approach security holistically:
+            from the network layer up through cloud architecture, detection, and response.
           </p>
           <p>
-            My background spans <span class="text-slate-200">detection engineering</span>,
-            <span class="text-slate-200">cloud security</span> (AWS), and
-            <span class="text-slate-200">DevSecOps automation</span>. I write in Python and Bash,
-            design detection rules in JSON, and wire everything together with GitHub Actions and
-            third-party APIs like Jira, Slack, and Shodan.
+            My background spans <span class="text-slate-200">cloud infrastructure</span> (AWS, Azure,
+            GCP), <span class="text-slate-200">SOC operations</span>, and
+            <span class="text-slate-200">security engineering</span> — with scripting in Python and
+            Bash to automate detection, remediation, and compliance workflows. Security automation
+            (IaC scanning, secrets detection, pipeline hardening) rounds out the toolkit as a
+            supporting discipline.
           </p>
           <p>
             This portfolio is a live demonstration of that work — real scripts, real detection logic,
@@ -196,11 +210,12 @@
         <div class="md:col-span-2 reveal reveal-delay-2">
           <div class="relative group">
             <!-- Avatar mw-techadin -->
-            <div class="w-full aspect-square max-w-xs mx-auto rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center overflow-hidden">
-              <div class="text-center p-8">
-                <div class="text-6xl mb-4">🛡️</div>
-                <div class="font-mono text-sm text-slate-500">photo.jpg</div>
-              </div>
+            <div class="w-full aspect-square max-w-xs mx-auto rounded-2xl bg-slate-800 border border-slate-700 overflow-hidden">
+              <img
+                src="https://github.com/mw-techadin.png"
+                alt="mw-techadin"
+                class="w-full h-full object-cover"
+              />
             </div>
             <!-- Accent border -->
             <div class="absolute -bottom-3 -right-3 w-full max-w-xs mx-auto aspect-square rounded-2xl border border-terminal-green/40 pointer-events-none"></div>
@@ -214,7 +229,7 @@
             </div>
             <div class="flex justify-between border-b border-slate-800 pb-2">
               <span class="text-slate-500">Focus</span>
-              <span class="text-slate-300">Detection &amp; DevSecOps</span>
+              <span class="text-slate-300">Infrastructure &amp; Security</span>
             </div>
             <div class="flex justify-between border-b border-slate-800 pb-2">
               <span class="text-slate-500">Languages</span>
@@ -411,7 +426,7 @@
         <h2 class="text-3xl font-bold text-slate-100 mt-1">Skills &amp; Tools</h2>
       </div>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
         <div class="skill-group reveal">
           <h3 class="skill-group-title">Languages</h3>
@@ -427,9 +442,10 @@
           <h3 class="skill-group-title">Cloud &amp; Infra</h3>
           <ul class="space-y-2">
             <li class="skill-item"><span class="skill-bar" style="--pct:85%"></span>AWS (IAM, S3, EC2)</li>
+            <li class="skill-item"><span class="skill-bar" style="--pct:78%"></span>Azure (Sentinel, Entra ID)</li>
+            <li class="skill-item"><span class="skill-bar" style="--pct:65%"></span>GCP (Security Command Center)</li>
             <li class="skill-item"><span class="skill-bar" style="--pct:70%"></span>Terraform</li>
             <li class="skill-item"><span class="skill-bar" style="--pct:65%"></span>Docker</li>
-            <li class="skill-item"><span class="skill-bar" style="--pct:55%"></span>Linux Admin</li>
           </ul>
         </div>
 
@@ -447,16 +463,41 @@
           </div>
         </div>
 
-        <div class="skill-group reveal reveal-delay-3">
-          <h3 class="skill-group-title">DevSecOps</h3>
+        <div class="skill-group reveal">
+          <h3 class="skill-group-title">SOC Operations</h3>
+          <div class="flex flex-wrap gap-2 mt-2">
+            <span class="tag">Incident Response</span>
+            <span class="tag">Threat Hunting</span>
+            <span class="tag">Alert Triage</span>
+            <span class="tag">Splunk</span>
+            <span class="tag">Elastic SIEM</span>
+            <span class="tag">Log Analysis</span>
+            <span class="tag">EDR / XDR</span>
+            <span class="tag">Threat Intel</span>
+          </div>
+        </div>
+
+        <div class="skill-group reveal reveal-delay-1">
+          <h3 class="skill-group-title">Compliance &amp; Frameworks</h3>
+          <div class="flex flex-wrap gap-2 mt-2">
+            <span class="tag">ISO 27001</span>
+            <span class="tag">ISO 27002</span>
+            <span class="tag">SOC 2 Type II</span>
+            <span class="tag">NIST CSF</span>
+            <span class="tag">MITRE ATT&amp;CK</span>
+            <span class="tag">PCI-DSS</span>
+            <span class="tag">Risk Assessment</span>
+          </div>
+        </div>
+
+        <div class="skill-group reveal reveal-delay-2">
+          <h3 class="skill-group-title">Security Automation</h3>
           <div class="flex flex-wrap gap-2 mt-2">
             <span class="tag">GitHub Actions</span>
-            <span class="tag">CI/CD Sec</span>
-            <span class="tag">SIEM</span>
-            <span class="tag">Jira API</span>
-            <span class="tag">Slack API</span>
-            <span class="tag">boto3</span>
             <span class="tag">IaC Scanning</span>
+            <span class="tag">Secrets Detection</span>
+            <span class="tag">boto3</span>
+            <span class="tag">Pipeline Security</span>
           </div>
         </div>
 
