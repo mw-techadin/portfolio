@@ -414,6 +414,35 @@
           <div class="card-file font-mono text-xs text-slate-600 mt-4">scripts/vuln_csv_parser.py</div>
         </article>
 
+        <!-- Card 7: AI Alert Triage -->
+        <article class="project-card reveal">
+          <div class="card-header">
+            <div class="card-icon">🤖</div>
+            <div class="card-links">
+              <a href="https://github.com/mw-techadin/portfolio/blob/main/detections/ai_alert_triage.py"
+                 target="_blank" class="card-link" aria-label="View source">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+          <h3 class="card-title">AI-Assisted Alert Triage</h3>
+          <p class="card-desc">
+            Pipes a raw SIEM alert (JSON) to the Claude API and returns a
+            structured analyst narrative — severity, likely cause, recommended
+            actions, and IOCs. Treats the LLM as a first-pass analyst, not a
+            decision-maker.
+          </p>
+          <div class="card-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Claude API</span>
+            <span class="tag">Detection</span>
+            <span class="tag">AI Security</span>
+          </div>
+          <div class="card-file font-mono text-xs text-slate-600 mt-4">detections/ai_alert_triage.py</div>
+        </article>
+
       </div>
     </div>
   </section>
