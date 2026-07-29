@@ -68,10 +68,11 @@ sections.forEach(section => sectionObserver.observe(section));
 // ── Typewriter effect ─────────────────────────────────────────
 const phrases = [
   'Security Engineer',
-  'Detection Engineer',
-  'DevSecOps Enthusiast',
   'Cloud Security',
-  'Automation Builder',
+  'Compliance Automation',
+  'DevSecOps',
+  'AI Governance',
+  'Detection Engineer',
 ];
 let phraseIdx = 0;
 let charIdx   = 0;

@@ -123,10 +123,12 @@
       </div>
 
       <p class="text-slate-400 text-lg max-w-2xl leading-relaxed mb-10 reveal reveal-delay-3">
-        Security engineer focused on <span class="text-slate-200 font-medium">detection engineering</span>,
-        <span class="text-slate-200 font-medium">cloud security automation</span>, and
-        <span class="text-slate-200 font-medium">DevSecOps</span>. I build tools that find threats,
-        reduce attack surface, and integrate security into every part of the pipeline.
+        Security engineer focused on <span class="text-slate-200 font-medium">cloud security</span>,
+        <span class="text-slate-200 font-medium">compliance automation</span>,
+        <span class="text-slate-200 font-medium">DevSecOps</span>, and
+        <span class="text-slate-200 font-medium">AI governance</span>. I build tools that reduce attack
+        surface, turn control and audit work into something repeatable, and integrate security into every
+        part of the pipeline.
       </p>
 
       <div class="flex flex-wrap gap-4 reveal reveal-delay-4">
@@ -147,7 +149,7 @@
           <div class="text-xs text-slate-500 mt-1 uppercase tracking-widest">Security Tools</div>
         </div>
         <div class="text-center border-x border-slate-800">
-          <div class="font-mono text-3xl font-bold text-terminal-green">5+</div>
+          <div class="font-mono text-3xl font-bold text-terminal-green">7</div>
           <div class="text-xs text-slate-500 mt-1 uppercase tracking-widest">Projects</div>
         </div>
         <div class="text-center">
@@ -199,9 +201,9 @@
           <div class="pt-4">
             <div class="font-mono text-xs text-slate-500 mb-3">$ cat current_focus.txt</div>
             <ul class="space-y-2 font-mono text-sm">
-              <li class="flex items-center gap-3"><span class="text-terminal-green">▸</span> Detection rule tuning and SIEM integration</li>
-              <li class="flex items-center gap-3"><span class="text-terminal-green">▸</span> Cloud-native security tooling (AWS)</li>
-              <li class="flex items-center gap-3"><span class="text-terminal-green">▸</span> Automating remediation workflows</li>
+              <li class="flex items-center gap-3"><span class="text-terminal-green">▸</span> Cloud security and compliance automation (SOC 2, ISO 27001)</li>
+              <li class="flex items-center gap-3"><span class="text-terminal-green">▸</span> Cloud-native security tooling (AWS, Terraform, Kubernetes)</li>
+              <li class="flex items-center gap-3"><span class="text-terminal-green">▸</span> AI-agent governance and guardrail validation</li>
             </ul>
           </div>
         </div>
@@ -252,11 +254,48 @@
         <span class="font-mono text-terminal-green text-sm">02.</span>
         <h2 class="text-3xl font-bold text-slate-100 mt-1">Projects</h2>
         <p class="text-slate-400 mt-3 max-w-xl">
-          Hands-on security tools built for real detection, automation, and DevSecOps workflows.
+          Hands-on security tools built for real detection, cloud auditing, compliance automation,
+          DevSecOps workflows, and AI-agent governance.
         </p>
       </div>
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Featured: AgentGuard Control Plane -->
+        <article class="project-card reveal sm:col-span-2 lg:col-span-3 border-terminal-green/30">
+          <div class="card-header">
+            <div class="flex items-center gap-3">
+              <div class="card-icon">🛡️</div>
+              <span class="font-mono text-xs uppercase tracking-widest text-terminal-green">Featured Project</span>
+            </div>
+            <div class="card-links">
+              <a href="https://mw-techadin.github.io/agentguard-control-plane/"
+                 target="_blank" rel="noopener" class="card-link" aria-label="View AgentGuard Control Plane">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+          <h3 class="card-title">AgentGuard Control Plane</h3>
+          <p class="card-desc max-w-3xl">
+            An AI-agent security governance prototype for risk intake, control mapping, evidence tracking,
+            and guardrail validation. Applies <span class="text-slate-200 font-medium">NIST AI RMF</span> concepts
+            to the practical problem of governing autonomous agents: data boundaries, identity, auditability,
+            human review, and approval workflows. Built to explore how existing control and audit-evidence
+            practice extends to AI systems.
+          </p>
+          <div class="card-tags">
+            <span class="tag">AI Governance</span>
+            <span class="tag">NIST AI RMF</span>
+            <span class="tag">Control Mapping</span>
+            <span class="tag">Evidence Tracking</span>
+            <span class="tag">Guardrails</span>
+          </div>
+          <div class="card-file font-mono text-xs text-slate-600 mt-4">
+            Public write-up &middot; source private (All Rights Reserved)
+          </div>
+        </article>
 
         <!-- Card 1: Linux Audit -->
         <article class="project-card reveal">
