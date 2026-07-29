@@ -210,17 +210,19 @@
 
         <!-- Avatar / side panel -->
         <div class="md:col-span-2 reveal reveal-delay-2">
-          <div class="relative group">
+          <!-- Sized wrapper: both the avatar and the accent frame position against
+               this same box, so the offset stays aligned at every breakpoint. -->
+          <div class="relative group w-full max-w-xs mx-auto">
+            <!-- Accent border: same box as the avatar, nudged down/right, sits behind -->
+            <div class="absolute inset-0 translate-x-3 translate-y-3 rounded-2xl border border-terminal-green/40 pointer-events-none"></div>
             <!-- Avatar mw-techadin -->
-            <div class="w-full aspect-square max-w-xs mx-auto rounded-2xl bg-slate-800 border border-slate-700 overflow-hidden">
+            <div class="relative w-full aspect-square rounded-2xl bg-slate-800 border border-slate-700 overflow-hidden">
               <img
                 src="https://github.com/mw-techadin.png"
                 alt="mw-techadin"
                 class="w-full h-full object-cover block"
               />
             </div>
-            <!-- Accent border -->
-            <div class="absolute -bottom-3 -right-3 w-full max-w-xs mx-auto aspect-square rounded-2xl border border-terminal-green/40 pointer-events-none"></div>
           </div>
 
           <!-- Quick facts -->
